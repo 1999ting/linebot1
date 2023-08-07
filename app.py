@@ -45,6 +45,26 @@ def handle_message(event):
             TextSendMessage(text=content))
 
 
+    @handler.add(FollowEvent)
+    def handle_follow(event):
+        welcome_msg = """Hello! 您好，歡迎您成為 Master Finance 的好友!
+        
+    我是Master 財經小幫手
+    
+    -這裡有股票，匯率的資訊喔~~~
+    點選下方「圖中」選單功能
+    
+    -期待您的光臨!"""
+        
+
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=welcome_msg))
+        
+    
+    @handler.add(UnfollowEvent)
+    def handle_unfollow(event):
+        print(event)
     # if event.message.text == "@小幫手":
     #     buttons_template = TemplateSendMessage(
     #         alt_text='小幫手 template',
