@@ -43,7 +43,7 @@ def handle_message(event):
                 "productId": "5ac1bfd5040ab15980c9b435",
                 "emojiId": "020"
             }
-    ]
+        ]
     text_message = TextSendMessage(text='''$ Master Finance $
 Hello! 您好 歡迎您加入此群組 
                                    
