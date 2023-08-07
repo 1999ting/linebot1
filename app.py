@@ -1,6 +1,7 @@
 #載入LineBot所需要的套件
 from line_bot_api import *
 from events.basic import *
+
 app = Flask(__name__)
 
 # 必須放上自己的Channel Access Token
