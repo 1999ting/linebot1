@@ -72,7 +72,7 @@ def handle_message(event):
     if (emsg.startswith("#")):
         text = emsg[1:]
         content = ""
-
+        line_bot_api.push_message(uid, TextSendMessage(text))
         stock_rt = twstock.realtime.get(text)
         my_datetime = datetime.datetime.fromtimestamp(stock_rt["timestamp"]+8*60*60)
         my_time = my_datetime.strftime("%H:%M:%S")
