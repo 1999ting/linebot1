@@ -105,6 +105,12 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
 
+
+#################################匯率區#####################################
+    if re.match('幣別種類',emsg):
+        message = show_Button()
+        line_bot_api.reply_message(event.reply_token, message)
+
 ############################ 粉絲/封鎖 訊息狀態 ############################
 
 @handler.add(FollowEvent)
