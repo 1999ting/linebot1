@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 import datetime
 
-stockDB = 'mydb'
+stockDB = 'mydb1'
 dbname = 'howard-good31'
 
 def constructor_stock():
