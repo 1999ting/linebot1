@@ -28,6 +28,11 @@ def show_Button():
             alt_text="幣別種類",
             contents={
                 "type": "bubble",
+                "hero": {
+                "type": "image",
+                "url": "https://shoplineimg.com/57e1eb1c6170696d41d71c00/64d050518d0d59000db8686d/2000x.webp?source_format=jpg",
+                "size": "full"
+                },
                 "body": {
                     "type": "box",
                     "layout": "vertical",
