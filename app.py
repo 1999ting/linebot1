@@ -70,7 +70,7 @@ def handle_message(event):
         return 0
 
     if(msg.startswith('#')):
-            text = msg[1:]
+            text = msg[5:]
             content = ''
 
             stock_rt = twstock.realtime.get(text)
