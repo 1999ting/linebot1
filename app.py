@@ -132,8 +132,8 @@ def handle_follow(event):
 def handle_unfollow(event):
     print(event)
 
-#     message = TextSendMessage(text=event.message.text)
-#     line_bot_api.reply_message(event.reply_token, message) #回覆你輸入的訊息(重複你說的話)
+    message = TextSendMessage(text=event.message.text)
+    line_bot_api.reply_message(event.reply_token, message) #回覆你輸入的訊息(重複你說的話)
 
 if __name__ =="__main__":
     app.run()
