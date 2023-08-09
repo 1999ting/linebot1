@@ -5,7 +5,7 @@ stockDB = 'mydb1'
 dbname = 'howard-good31'
 
 def constructor_stock():
-    client = MongoClient("mongodb://b5381621:<kevin741231249>@ac-9i9bmty-shard-00-00.rlt9le6.mongodb.net:27017,ac-9i9bmty-shard-00-01.rlt9le6.mongodb.net:27017,ac-9i9bmty-shard-00-02.rlt9le6.mongodb.net:27017/?ssl=true&replicaSet=atlas-7txvue-shard-0&authSource=admin&retryWrites=true&w=majority")
+    client = MongoClient("mongodb://b5381621:kevin741231249@ac-9i9bmty-shard-00-00.rlt9le6.mongodb.net:27017,ac-9i9bmty-shard-00-01.rlt9le6.mongodb.net:27017,ac-9i9bmty-shard-00-02.rlt9le6.mongodb.net:27017/?ssl=true&replicaSet=atlas-7txvue-shard-0&authSource=admin&retryWrites=true&w=majority")
     db = client[stockDB]
     return db
 #-----------------------------------------更新暫存的股票名稱---------------------------------------------
