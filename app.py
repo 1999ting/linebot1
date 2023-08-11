@@ -73,6 +73,15 @@ def handle_message(event):
         line_bot_api.push_message(uid, TextSendMessage(content))
         return 0
 
+    if re.match('刪除[0-9]{4}', msg):
+        content = show_stock_setting(user_name, uid)
+        line_bot_api.push_message(uid, TextSendMessage(content))
+        return 0
+
+    if re.match('清空股票', msg):
+        content = delete_my_allstock
+        line_bot_api.push_message(uid, TextSendMessage(content))
+
     if (emsg.startswith("#")):
         text = emsg[1:]
         content = ""
