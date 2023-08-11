@@ -79,7 +79,7 @@ def handle_message(event):
         return 0
 
     if re.match('清空股票', msg):
-        content = delete_my_allstock
+        content = delete_my_allstock(user_name, uid)
         line_bot_api.push_message(uid, TextSendMessage(content))
 
     if (emsg.startswith("#")):
