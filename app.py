@@ -11,7 +11,7 @@ import datetime
 
 app = Flask(__name__)
 
-def cache_user_stock():
+def cache_users_stock():
     db = constructor_stock()
     nameList = db.list_collection_names()
     users = []
@@ -172,7 +172,8 @@ def handle_message(event):
                     line_bot_api.push_message(userID, TextSendMessage(text=content))
         def job():
             print('HH')
-            dataList = cache_user_stock()
+            line_bot_api.push_message(uid, TextSendMessage(content))
+            dataList = cache_users_stock()
             # print(dataList)
             for i in range(len(dataList)):
                 for k in range(len(dataList[i])):
