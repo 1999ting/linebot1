@@ -174,7 +174,7 @@ def handle_message(event):
 
         def job():
             print('HH')
-            line_bot_api.push_message(uid, TextSendMessage("趕快提醒我"))
+            line_bot_api.push_message(uid, TextSendMessage(content))
             dataList = cache_users_stock()
             # print(dataList)
             for i in range(len(dataList)):
