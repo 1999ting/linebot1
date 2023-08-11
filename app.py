@@ -153,7 +153,7 @@ def handle_message(event):
             url = 'https://tw.stock.yahoo.com/q/q?s=' + stock
             list_req = requests.get(url)
             soup = BeautifulSoup(list_req.content, "html.parser")
-            getstock= soup.findAll('b')[1].text
+            getstock= soup.findAll('span')[1].text
             content = stock + "當前股市價格為: " +  getstock
             if condition == '<':
                 content += "\n篩選條件為: < "+ price
@@ -174,7 +174,7 @@ def handle_message(event):
 
         def job():
             print('HH')
-            line_bot_api.push_message(uid, TextSendMessage(content))
+            line_bot_api.push_message(uid, TextSendMessage("趕快提醒我"))
             dataList = cache_users_stock()
             # print(dataList)
             for i in range(len(dataList)):
