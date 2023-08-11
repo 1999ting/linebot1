@@ -172,7 +172,7 @@ def handle_message(event):
                     line_bot_api.push_message(userID, TextSendMessage(text=content))
         def job():
             print('HH')
-            dataList = cache_users_stock()
+            dataList = cache_user_stock()
             # print(dataList)
             for i in range(len(dataList)):
                 for k in range(len(dataList[i])):
