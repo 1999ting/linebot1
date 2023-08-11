@@ -11,6 +11,16 @@ import datetime
 
 app = Flask(__name__)
 
+def cache_user_stock():
+    db = constructor_stock()
+    nameList = db.list_collection_names()
+    users = []
+    for i in range(len(nameList)):
+        collect = db[nameList[i]]
+        cel = list(collect.find({"tag":'stock'}))
+        users.append(cel)
+    return users
+
 #監聽所有來自callback的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -133,6 +143,49 @@ def handle_message(event):
         line_bot_api.push_message(uid, TextSendMessage("將為您做外匯計算....."))
         content = getExchangeRate(msg)
         line_bot_api.push_message(uid, TextSendMessage(content))
+        
+    if re.match("股價提醒", msg):
+        import schedule
+        import time
+
+        def look_stock_price(stock, condition, price, userID):
+            print(userID)
+            url = 'https://tw.stock.yahoo.com/q/q?s=' + stock
+            list_req = requests.get(url)
+            soup = BeautifulSoup(list_req.content, "html.parser")
+            getstock = soup.findAll('b')[1].text
+            content = stock + "當前股市價格為: " + getstock
+            if condition == '<':
+                content += "\n篩選的條件為: < " +price
+                if float(getstock) < float(price):
+                    content += "\n符合" + getstock + " > " + price + "篩選的條件"
+                    line_bot_api.push_message(userID, TextMessage(text=content))
+            elif condition == '>' :
+                content += "\n開選的條件為: > " +price
+                if float(getstock) < float(price):
+                    content += "\n符合" + getstock + " > " + price + "的篩選條件"
+                    line_bot_api.push_message(userID, TextMessage(text=content))
+            elif condition == '>' :
+                content += "\n開選的條件為: = " +price
+                if float(getstock) < float(price):
+                    content += "\n符合" + getstock + " = " + price + "的篩選條件"
+                    line_bot_api.push_message(userID, TextMessage(text=content))
+    def job():
+        print('HH')
+        dataList = cache_user_stock()
+
+        for i in range(len(dataList)):
+            for k in range(dataList[i]):
+                look_stock_price(dataList[i][k]['favorite_stock'], dataList[i][k]['condition'], dataList[i][k]['price'], dataList[i][k]['userID'])
+    # schedule.every(30).seconds.do(job).tag('daily-tasks-stock'+uid, 'second')
+    # schedule.every().hour.do(job) #每小時執行一次
+    # schedule.every().day.at("17:19").do(job)
+    # schedule.every().monday.do(job)
+    # schedule.every().wednesday.at("14:45").do(job)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 ############################ 粉絲/封鎖 訊息狀態 ############################
 
 @handler.add(FollowEvent)
