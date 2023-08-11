@@ -170,6 +170,8 @@ def handle_message(event):
                 if float(getstock) == float(price):
                     content += "\n符合" + getstock + " = " + price + "的篩選條件"
                     line_bot_api.push_message(userID, TextSendMessage(text=content))
+
+
         def job():
             print('HH')
             line_bot_api.push_message(uid, TextSendMessage(content))
