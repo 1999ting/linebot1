@@ -24,7 +24,7 @@ def callback():
 
 # 爬取前五筆資料，包括日期、標題和連結
 def get_top5_data():
-    url = 'https://example.com'
+    url = 'https://www.ptt.cc/bbs/biker/index.html'
     response = requests.get(url)
     html_content = response.content
     soup = BeautifulSoup(html_content, 'html.parser')
