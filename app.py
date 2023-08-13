@@ -128,9 +128,8 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
         
-    if message_text == '前五筆':
+    if message_text == 'ptt及時討論':
         top5_data = get_top5_data()
-        reply_message = "前五筆資料：\n"
         for date, title, link in top5_data:
             reply_message += f"{date}\n- {title}\n  {link}\n"
         line_bot_api.reply_message(
