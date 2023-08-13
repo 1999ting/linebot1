@@ -128,11 +128,11 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
         
-        if message_text == '最新資料':
-            latest_data = get_latest_data()
-            reply_message = "最新的5筆資料：\n"
-            for data in latest_data:
-               reply_message += f"- {data}\n"
+    if message_text == '前五筆':
+            top5_data = get_top5_data()
+            reply_message = "前五筆資料：\n"
+            for date, title, link in top5_data:
+                reply_message += f"{date}\n- {title}\n  {link}\n"
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=reply_message)
