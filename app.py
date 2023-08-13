@@ -131,12 +131,11 @@ def handle_message(event):
         
     if user_message == 'ptt':
         top5_data = get_top5_data()
-        reply_message = "前五筆資料：\n"
         for date, title, link in top5_data:
-            reply_message += f"{date}\n- {title}\n  {link}\n"
+            content += f"{date}\n- {title}\n  {link}\n"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=reply_message)
+            TextSendMessage(text=content)
         )
 
 
