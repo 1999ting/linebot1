@@ -7,8 +7,8 @@ def bikerptt():
     res = rs.get(target_url1, verify=False)
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
-    date = soup.select('#date')[:5].replace('\n', '')
-    title = soup.select('#title')[:5].replace('\n\n\n', '').replace(' ', '')
-    href = soup.select('#href')[:5].replace(' ', '')
+    date = soup.select('#date')[:5]
+    title = soup.select('#title')[:5]
+    href = soup.select('#href')[:5]
     content = '{}\n{}{}'.format(date, title, href)
     return content
