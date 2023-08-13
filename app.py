@@ -131,13 +131,9 @@ def handle_message(event):
         
     if event.message.text == '最新資料' :
         content = bikerptt()
-        reply_message = "最新的5筆資料：\n"
-        for data in bikerptt:
-            reply_message += f"- {data}\n"
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=reply_message)
-        )
+            TextSendMessage(text=content))
 
 
 #################################匯率區#####################################
