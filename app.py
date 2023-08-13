@@ -133,7 +133,7 @@ def handle_message(event):
         content = bikerptt()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=content))
+            TextSendMessage(content))
 
 
 #################################匯率區#####################################
