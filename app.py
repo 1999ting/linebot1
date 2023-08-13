@@ -130,6 +130,7 @@ def handle_message(event):
         
     if event.message.text == "ptt":
         content = ptt_motor()
+        print('123')
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=content))
