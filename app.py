@@ -129,7 +129,7 @@ def handle_message(event):
             )
         
     if message_text == 'ptt討論':
-        top5_data = get_top5_data()
+        top5_data = ptt_motor()
         for date, title, link in top5_data:
             reply_message += f"{date}\n- {title}\n  {link}\n"
         line_bot_api.reply_message(
