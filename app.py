@@ -129,15 +129,15 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
         
-        if re.match('最新資料', msg):
-            latest_data = get_latest_data()
-            reply_message = "最新的5筆資料：\n"
-            for data in latest_data:
-                reply_message += f"- {data}\n"
-            line_bot_api.reply_message(
-                event.reply_token,
-                TextSendMessage(text=reply_message)
-            )
+    if event.message.text == '最新資料' :
+        content = bikerptt()
+        reply_message = "最新的5筆資料：\n"
+        for data in bikerptt:
+            reply_message += f"- {data}\n"
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=reply_message)
+        )
 
 
 #################################匯率區#####################################
