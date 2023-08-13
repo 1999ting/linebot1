@@ -7,8 +7,8 @@ def ptt_motor():
     res = rs.get(target_url, verify=False)
     res.encoding = 'utf-8'
     soup = BeautifulSoup(res.text, 'html.parser')
-    date = soup.select('#date')[0].text.replace('\n', '')
+    date = soup.select('#date')[0].text.strip()
     title = soup.select('#title')[0].text.replace('\n\n\n', '').replace(' ', '')
-    link = soup.select('a','#link')[0].text.replace(' ', '')
+    link = soup.select('a','#link')[0]['href']
     content = '{}\n{}{}'.format(date, title, link)
     return content
