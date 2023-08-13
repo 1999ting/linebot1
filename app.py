@@ -128,14 +128,14 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
         
-    if message_text == 'ptt及時討論':
+    if message_text == 'ptt討論':
         top5_data = get_top5_data()
         for date, title, link in top5_data:
             reply_message += f"{date}\n- {title}\n  {link}\n"
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=reply_message)
-        )
+            )
 
 
 #################################匯率區#####################################
