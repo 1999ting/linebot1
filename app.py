@@ -128,14 +128,11 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
         
-    if message_text == 'ptt討論':
-        top5_data = ptt_motor()
-        for date, title, link in top5_data:
-            reply_message += f"{date}\n- {title}\n  {link}\n"
+    if event.message.text == "ptt":
+        content = ptt_motor()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=reply_message)
-            )
+            TextSendMessage(text=content))
 
 
 #################################匯率區#####################################
