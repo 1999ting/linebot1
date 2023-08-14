@@ -130,11 +130,11 @@ def handle_message(event):
             )
         
     if message_text == 'ptt':
-        news_content = get_latest_news1()
+        news_content = get_news()
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=news_content)
-            )
+        )
 
 
 #################################匯率區#####################################
