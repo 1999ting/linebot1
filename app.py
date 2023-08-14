@@ -31,7 +31,7 @@ def get_latest_data():
     soup = BeautifulSoup(html_content, 'html.parser')
     data_list = []
     # 假設資料是在<div class="data">...</div>標籤中
-    data_elements = soup.find_all('div', class_='data')
+    data_elements = soup.find_all('div', class_='title')
     for data_element in data_elements[:5]:
         data_list.append(data_element.text)
     return data_list
@@ -42,7 +42,6 @@ def handle_message(event):
     user_message = event.message.text
     if user_message == 'ptt':
         latest_data = get_latest_data()
-        reply_message = "最新的5筆資料：\n"
         for data in latest_data:
             reply_message += f"- {data}\n"
         line_bot_api.reply_message(
