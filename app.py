@@ -129,14 +129,12 @@ def handle_message(event):
             TextSendMessage(text=content)
             )
         
-    if user_message == 'ptt':
-        top5_data = get_latest_news1()
-        for date, title, link in top5_data:
-            content += f"{date}\n- {title}\n  {link}\n"
+    if message_text == 'ptt':
+        news_content = get_latest_news1()
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=content)
-        )
+            TextSendMessage(text=news_content)
+            )
 
 
 #################################匯率區#####################################
