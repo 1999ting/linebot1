@@ -7,8 +7,9 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 app = Flask(__name__)
 
-# Line Bot 的 Channel Access Token 和 Channel Secret
+# 必須放上自己的Channel Access Token
 line_bot_api = LineBotApi('92kcy07IM75HrTqA3x+nCn61QmpKr0I5c1gH3Dumn5MR8DP1876/38wqBFlF/1KqP+R+cjzpqvxLD1NELcik69B92V8+k4Wt0ZroHxEoL5HZ19/nT7RC6v3j08G6AFd2/sFxfJy2tsy84WGEbNNrwQdB04t89/1O/w1cDnyilFU=')
+# 必須放上自己的Channel Secret
 handler = WebhookHandler('8cfd13f4a443434527574c3c6b80b0ab')
 
 # 處理 Line Bot 的 Webhook 請求
@@ -22,21 +23,17 @@ def callback():
         abort(400)
     return 'OK'
 
-# 爬取前五筆資料，包括日期、標題和連結
-def get_top5_data():
+# 爬取最新的5筆資料
+def get_latest_data():
     url = 'https://www.ptt.cc/bbs/biker/index.html'
     response = requests.get(url)
     html_content = response.content
     soup = BeautifulSoup(html_content, 'html.parser')
     data_list = []
-    data_elements = soup.find_all('div', 'title')  # 假設標題在<div>標籤中，並有class為"title"
-    for i in range(min(5, len(data_elements))):
-        date_element = data_elements[i].find_previous('div', 'date')  # 找到前一個相鄰的<div>標籤，並有class為"date"
-        date = date_element.text.strip()
-        title_element = data_elements[i].find('a', 'link')  # 找到<a>標籤
-        title = title_element.text
-        link = title_element['href']  # 提取連結的href屬性值
-        data_list.append((date, title, link))
+    # 假設資料是在<div class="data">...</div>標籤中
+    data_elements = soup.find_all('div', class_='data')
+    for data_element in data_elements[:5]:
+        data_list.append(data_element.text)
     return data_list
 
 # Line Bot 的訊息處理
@@ -44,9 +41,10 @@ def get_top5_data():
 def handle_message(event):
     user_message = event.message.text
     if user_message == 'ptt':
-        top5_data = get_top5_data()
-        for date, title, link in top5_data:
-            reply_message += f"{date}\n- {title}\n  {link}\n"
+        latest_data = get_latest_data()
+        reply_message = "最新的5筆資料：\n"
+        for data in latest_data:
+            reply_message += f"- {data}\n"
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=reply_message)
