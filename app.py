@@ -17,7 +17,7 @@ def crawl_website():
     soup = BeautifulSoup(response.content, 'html.parser')
     articles = []
 
-    for article in soup.find_all('article'):  # 假設每篇文章都被<article>標籤包裹
+    for article in soup.find_all('r-ent'):  # 假設每篇文章都被<article>標籤包裹
         title = article.find('title').text
         link = article.find('a')['href']
         date = article.find('date').text
