@@ -48,8 +48,8 @@ def handle_message(event):
     if user_message == '前五筆':
         top5_data = get_top5()
         reply_message = "前五筆標題及連結：\n"
-        for title, link in top5_data:
-            reply_message += f"- {title}\n  {link}\n"
+        for date, title, link in top5_data:
+            reply_message += f"- {date}\n {title}\n  {link}\n"
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=reply_message)
