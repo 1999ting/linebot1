@@ -23,27 +23,33 @@ def callback():
         abort(400)
     return 'OK'
 
-# 爬取最新的5筆資料
-def get_latest_data():
+# 爬取前五筆標題及連結
+def get_top5():
     url = 'https://www.ptt.cc/bbs/biker/index.html'
     response = requests.get(url)
     html_content = response.content
     soup = BeautifulSoup(html_content, 'html.parser')
-    data_list = []
-    # 假設資料是在<div class="data">...</div>標籤中
-    data_elements = soup.find_all('div', class_='title')
-    for data_element in data_elements[:5]:
-        data_list.append(data_element.text)
-    return data_list
+    title_link_list = []
+    # 假設標題和連結在<a>標籤中，並且有class為"title"和"link"
+    title_elements = soup.find_all('div', class_='title')
+    link_elements = soup.find_all('a', class_='link')
+    date_elements = soup.find_all('div', class_='date')
+    for i in range(min(5, len(title_elements))):
+        date = date_elements[i].text
+        title = title_elements[i].text
+        link = link_elements[i]['href']
+        title_link_list.append((date, title, link))
+    return title_link_list
 
 # Line Bot 的訊息處理
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_message = event.message.text
-    if user_message == 'ptt':
-        latest_data = get_latest_data()
-        for data in latest_data:
-            reply_message += f"- {data}\n"
+    if user_message == '前五筆':
+        top5_data = get_top5()
+        reply_message = "前五筆標題及連結：\n"
+        for title, link in top5_data:
+            reply_message += f"- {title}\n  {link}\n"
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=reply_message)
