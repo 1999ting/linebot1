@@ -29,11 +29,11 @@ def get_top5_data():
     html_content = response.content
     soup = BeautifulSoup(html_content, 'html.parser')
     data_list = []
-    data_elements = soup.find_all('div', class_='title')  # 假設標題在<div>標籤中，並有class為"title"
+    data_elements = soup.find_all('div', 'title')  # 假設標題在<div>標籤中，並有class為"title"
     for i in range(min(5, len(data_elements))):
-        date_element = data_elements[i].find_previous('div', class_='date')  # 找到前一個相鄰的<div>標籤，並有class為"date"
+        date_element = data_elements[i].find_previous('div', 'date')  # 找到前一個相鄰的<div>標籤，並有class為"date"
         date = date_element.text.strip()
-        title_element = data_elements[i].find('a', class_ ='link')  # 找到<a>標籤
+        title_element = data_elements[i].find('a', 'link')  # 找到<a>標籤
         title = title_element.text
         link = title_element['href']  # 提取連結的href屬性值
         data_list.append((date, title, link))
@@ -43,9 +43,8 @@ def get_top5_data():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     user_message = event.message.text
-    if user_message == '前五筆':
+    if user_message == 'ptt':
         top5_data = get_top5_data()
-        reply_message = "前五筆資料：\n"
         for date, title, link in top5_data:
             reply_message += f"{date}\n- {title}\n  {link}\n"
         line_bot_api.reply_message(
